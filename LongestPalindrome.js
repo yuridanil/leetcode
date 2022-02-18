@@ -2,17 +2,18 @@
  * @param {string} s
  * @return {number}
  */
- var longestPalindrome = function(s) {
+var longestPalindrome = function(s) {
     let m = new Map();
     let n = 0;
-    for (e of s) {
+    let x = 0;
+    for (e of s)
         m.set(e, m.get(e) + 1 || 1);
-        if (m.get(e) === 2) {
-            n++;
-            m.delete(e);
-        }
-    }
-    return n * 2 + (m.size > 0 ? 1 : 0);
+    m.forEach( (v, k) => {
+        if (v % 2 > 0)
+            x = 1;
+        n += v % 2 === 0 ? v : v - 1;
+    });
+    return n + x;
 };
 
 console.log(longestPalindrome("abccccdd"));
